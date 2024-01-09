@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Add module</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/add.css' %}">
+  </head>
+  <header>
+    <div class="main-block left-part">
+      {% include 'parts/header.html' %}
+    </div>
+  </header>
+  <body>
+    <div class="main-block">
+      <div class="left-part">
+        <i class="fas fa-graduation-cap"></i>
+        <h1>Register our modules</h1>
+        <p>schoolUniv provides perfect modules for our students.</p>
+        <div class="btn-group">
+          <a class="btn-item" href="{% url 'list_module' %}">List of modules</a>
+          <a class="btn-item" href="{% url 'list_student' %}">List of Student</a>
+        </div>
+      </div>
+      <form method="post">
+        {% csrf_token %}
+        {% if error_message %}
+        <p>{{ error_message }}</p>
+        {% endif %}
+        <div class="title">
+          <i class="fas fa-pencil-alt"></i>
+          <h2>Register here</h2>
+        </div>
+        <div class="info">
+          <input class="fname" type="text" name="name" placeholder="module name">
+          <select name="speciality">
+          {% for speciality in specialities %}
+                <option value="{{speciality.id}}">{{speciality.name}}</option>
+          {% endfor %}
+          </select>
+          <select name="semester">
+            <option value="1" selected>semester 1</option>
+            <option value="2">semester 2</option>
+            <option value="3">semester 3</option>
+            <option value="4">semester 4</option>
+            <option value="5">semester 5</option>
+            <option value="6">semester 6</option>
+          </select>
+          <select name="student" id="student">
+          {% for std in students %}
+                <option value="{{std.id}}">{{std.first_name}} {{std.last_name}}</option>
+          {% endfor %}
+          </select>
+          <input type="number" name="grade" placeholder="grade">
+          <select name="result">
+            <option value="1">pass</option>
+            <option value="2" selected>fail</option>
+          </select>
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </body>
+</html>

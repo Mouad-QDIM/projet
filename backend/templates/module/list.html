@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List of modules</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/list.css' %}">
+</head>
+  <header>
+    <div class="main-block left-part">
+      {% include 'parts/header.html' %}
+    </div>
+  </header>
+<body>
+<div class="container">
+  <table>
+    <thead>
+      <tr>
+        <th>Module name</th>
+        <th>Student name</th>
+        <th>Speciality</th>
+        <th>Semester</th>
+        <th>Grade</th>
+        <th>Result</th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for mod in modules %}
+      <tr>
+        <td>{{mod.name}}</td>
+        <td>{{mod.student}}</td>
+        <td>{{mod.speciality}}</td>
+        <td>{{mod.semester}}</td>
+        <td>{{mod.grade}}</td>
+        <td>{{mod.result}}</td>
+        <td><a href="{% url 'update_module' mod.id %}">Update</a></td>
+        <td><a href="{% url 'delete_module' mod.id %}">Delete</a></td>
+      </tr>
+     {% endfor %}
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

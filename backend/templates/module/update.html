@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Update module</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/add.css' %}">
+  </head>
+    <header>
+      <div class="main-block left-part">
+        {% include 'parts/header.html' %}
+      </div>
+    </header>
+  <body>
+    <div class="main-block">
+      <div class="left-part">
+        <i class="fas fa-graduation-cap"></i>
+        <h1>Register our modules</h1>
+        <p>schoolUniv provides perfect modules for our students.</p>
+        <div class="btn-group">
+          <a class="btn-item" href="{% url 'list_module' %}">List of modules</a>
+          <a class="btn-item" href="{% url 'list_student' %}">List of Student</a>
+        </div>
+      </div>
+      <form method="post">
+        {% csrf_token %}
+        {% if error_message %}
+        <p>{{ error_message }}</p>
+        {% endif %}
+        <div class="title">
+          <i class="fas fa-pencil-alt"></i>
+          <h2>Register here</h2>
+        </div>
+        <div class="info">
+          {% if module %}
+            <input class="fname" type="text" name="name" placeholder="module name" value="{{ module.name }}">
+            <select name="speciality">
+                {% for speciality in specialities %}
+                    <option value="{{ speciality.id }}" {% if speciality.id == module.speciality.id %} selected {% endif %}>{{ speciality.name }}</option>
+                {% endfor %}
+            </select>
+            <select name="semester">
+                {% for semester_choice in module.SEMESTER_CHOICES %}
+                    <option value="{{ semester_choice.0 }}" {% if semester_choice.0 == module.semester %} selected {% endif %}>{{ semester_choice.1 }}</option>
+                {% endfor %}
+            </select>
+            <select name="student" id="student">
+                {% for std in students %}
+                    <option value="{{ std.id }}" {% if std.id == module.student.id %} selected {% endif %}>{{ std.first_name }} {{ std.last_name }}</option>
+                {% endfor %}
+            </select>
+            <input type="number" name="grade" placeholder="grade" value="{{ module.grade }}">
+            <select name="result">
+                <option value="1" {% if module.result == 'pass' %} selected {% endif %}>pass</option>
+                <option value="2" {% if module.result == 'fail' %} selected {% endif %}>fail</option>
+            </select>
+        </div>
+        {% endif %}
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </body>
+</html>

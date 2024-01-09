@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Add student</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/add.css' %}">
+  </head>
+  <header>
+    <div class="main-block left-part">
+      {% include 'parts/header.html' %}
+    </div>
+  </header>
+  <body>
+    <div class="main-block">
+      <div class="left-part">
+        <i class="fas fa-graduation-cap"></i>
+        <h1>Register to our modules</h1>
+        <p>SchoolUniv provides perfect modules for our students.</p>
+        <div class="btn-group">
+          <a class="btn-item" href="{% url 'list_speciality' %}">List of specialities</a>
+          <a class="btn-item" href="{% url 'list_module' %}">List of modules</a>
+        </div>
+      </div>
+      <form method="post">
+        {% csrf_token %}
+        {% if error_message %}
+        <p>{{ error_message }}</p>
+        {% endif %}
+        <div class="title">
+          <i class="fas fa-pencil-alt"></i>
+          <h2>Register here</h2>
+        </div>
+        <div class="info">
+          <input class="fname" type="text" name="fname" placeholder="First name">
+          <input type="text" name="lname" placeholder="Last name">
+          <input type="number" name="age" placeholder="Age">
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List of specialities</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/list.css' %}">
+</head>
+  <header>
+    <div class="main-block left-part">
+      {% include 'parts/header.html' %}
+    </div>
+  </header>
+<body>
+<div class="container">
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Number of semesters</th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for spec in specialities %}
+      <tr>
+        <td>{{spec.name}}</td>
+        <td>{{spec.semesters}}</td>
+        <td><a href="{% url 'update_speciality' spec.id %}">Update</a></td>
+        <td><a href="{% url 'delete_speciality' spec.id %}">Delete</a></td>
+      </tr>
+     {% endfor %}
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
